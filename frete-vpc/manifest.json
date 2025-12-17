@@ -1,0 +1,10 @@
+{
+  "name": "Calculadora de Frete VPC",
+  "short_name": "Frete",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0d47a1",
+  "description": "Calculadora de frete (instalável como app)."
+}

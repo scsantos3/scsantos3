@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d47a1" />
+  <meta name="description" content="Calculadora de Frete VPC (PWA instalável)" />
+
+  <link rel="manifest" href="manifest.json" />
+  <title>Calculadora de Frete</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div>
+        <div class="title">Calculadora de Frete</div>
+        <div class="subtitle">VPC • Mobile App</div>
+      </div>
+
+      <button id="btnInstall" class="btn ghost" type="button" hidden>Instalar</button>
+    </header>
+
+    <main class="content">
+      <section class="card">
+        <div class="grid">
+          <div class="field">
+            <label for="cliente">Nome do cliente</label>
+            <input id="cliente" type="text" placeholder="Ex: João da Silva" />
+          </div>
+
+          <div class="field">
+            <label for="clienteTel">Telefone do cliente</label>
+            <input id="clienteTel" type="tel" inputmode="tel" placeholder="Ex: (81) 99999-9999" />
+          </div>
+
+          <div class="field">
+            <label for="motorista">Nome do motorista</label>
+            <input id="motorista" type="text" placeholder="Ex: Carlos" />
+          </div>
+
+          <div class="field">
+            <label for="motoristaTel">Telefone do motorista</label>
+            <input id="motoristaTel" type="tel" inputmode="tel" placeholder="Ex: (81) 98888-8888" />
+          </div>
+
+          <div class="field">
+            <label for="origem">Origem</label>
+            <input id="origem" type="text" placeholder="Ex: Recife" />
+          </div>
+
+          <div class="field">
+            <label for="destino">Destino</label>
+            <input id="destino" type="text" placeholder="Ex: João Pessoa" />
+          </div>
+
+          <div class="field">
+            <label for="caminhao">Caminhão</label>
+            <select id="caminhao">
+              <option value="leve">300 a 5.550 — VW/9.170 DRC 4x2</option>
+              <option value="medio">7.100 a 10.000 — VW 13-180</option>
+              <option value="pesado">11.000 a 22.390 — VM-360 8x2R BITRUCK</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="peso">Peso (KG)</label>
+            <input id="peso" type="number" inputmode="numeric" placeholder="Ex: 3000" min="0" />
+          </div>
+
+          <div class="field">
+            <label for="km">Distância (KM) <span class="hint">(mínimo 50)</span></label>
+            <input id="km" type="number" inputmode="numeric" placeholder="Ex: 100" min="0" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="btnCalcular" class="btn primary" type="button">Calcular frete</button>
+          <button id="btnLimpar" class="btn" type="button">Limpar</button>
+        </div>
+
+        <div class="actions" style="margin-top:10px;">
+          <button id="btnRecibo" class="btn ghost" type="button" disabled>Gerar recibo</button>
+          <button id="btnCopiar" class="btn" type="button" disabled>Copiar recibo</button>
+        </div>
+      </section>
+
+      <section class="card result-card">
+        <div id="resultado" class="resultado">
+          Preencha os dados e toque em <strong>Calcular frete</strong>.
+        </div>
+      </section>
+
+      <section class="card result-card">
+        <div id="reciboBox" class="resultado" style="display:none;"></div>
+      </section>
+
+      <footer class="foot">
+        <small>Modo PWA: funciona offline depois do 1º acesso.</small>
+      </footer>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
