@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Calculadora Valor Hora Ajudante Carreta</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+}
+
+.container {
+  width: 650px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* FORMULÁRIO */
+.linha-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.linha-form input {
+  padding: 8px;
+  font-size: 14px;
+}
+
+input#descricao {
+  width: 300px;
+}
+
+/* RECIBO */
+.recibo {
+  display: none;
+  width: 600px;
+  margin: 25px auto;
+  padding: 20px;
+  border: 2px solid #333;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  background: #fff;
+  color: #000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.recibo img.logo {
+  display: block;
+  margin: 0 auto 15px auto;
+  max-width: 150px;
+}
+
+.recibo h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.recibo .linha {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.recibo .total {
+  font-weight: bold;
+  border-top: 1px dashed #000;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.recibo .assinatura {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.recibo .assinatura div {
+  text-align: center;
+  width: 45%;
+  font-size: 12px;
+}
+
+button {
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- TÍTULO DO SISTEMA -->
+  <h2>Valor Hora Ajuda Carreta</h2>
+
+  <!-- CAMPOS PARA PREENCHIMENTO -->
+  <div class="linha-form">
+    <input type="text" id="motorista" placeholder="Nome do motorista">
+    <input type="number" id="caminhoes" placeholder="Qtde caminhões">
+  </div>
+
+  <div class="linha-form">
+    <input type="number" id="ajudantes" placeholder="Qtde ajudantes">
+    <input type="text" id="descricao" placeholder="Descrição do serviço">
+    <button onclick="gerarRecibo()">Gerar Recibo</button>
+  </div>
+
+</div>
+
+<!-- RECIBO -->
+<div class="recibo" id="recibo"></div>
+
+<script>
+function gerarRecibo() {
+  const motorista = document.getElementById("motorista").value || "Não informado";
+  const caminhoes = Number(document.getElementById("caminhoes").value) || 0;
+  const ajudantes = Number(document.getElementById("ajudantes").value) || 0;
+  const descricao = document.getElementById("descricao").value || "Serviço não informado";
+
+  const valorHora = 15;
+  const periculosidade = 0.30;
+  const horasFixas = 2.5;
+
+  const horaNormal = valorHora * (1 + periculosidade);
+  const total = caminhoes * (horaNormal * ajudantes * horasFixas);
+
+  const data = new Date().toLocaleString("pt-BR");
+
+  const reciboHTML = `
+    <img class="logo" src="https://via.placeholder.com/150x50.png?text=LOGO" alt="Logo da Empresa">
+
+    <h3>Recibo de Serviço</h3>
+
+    <div class="linha"><span>Data</span><span>${data}</span></div>
+    <div class="linha"><span>Motorista</span><span>${motorista}</span></div>
+    <div class="linha"><span>CNPJ</span><span>60.794.448/0001-56</span></div>
+    <div class="linha"><span>Endereço</span><span>Rod. PE 075, 220, Galpão 03, Centro, Goiana - PE</span></div>
+    <div class="linha"><span>Descrição do serviço</span><span>${descricao}</span></div>
+    <div class="linha"><span>Caminhões</span><span>${caminhoes}</span></div>
+    <div class="linha"><span>Ajudantes</span><span>${ajudantes}</span></div>
+    <div class="linha"><span>Horas</span><span>${horasFixas} h</span></div>
+    <div class="linha total"><span>Total</span><span>R$ ${total.toFixed(2).replace(".", ",")}</span></div>
+
+    <p style="margin-top:15px;font-size:12px;text-align:center">
+      OBS.: Cobramos apenas uma taxa para agilizar o processo.<br>
+      Não emitimos notas fiscais formais.
+    </p>
+
+    <div class="assinatura">
+      <div>
+        ___________________________<br>
+        Assinatura do Motorista
+      </div>
+      <div>
+        ___________________________<br>
+        Assinatura da Empresa
+      </div>
+    </div>
+  `;
+
+  const div = document.getElementById("recibo");
+  div.innerHTML = reciboHTML;
+  div.style.display = "block";
+
+  setTimeout(() => window.print(), 300);
+}
+</script>
+
+</body>
+</html>
